@@ -37,7 +37,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image_list = []
         for i in range(1):
             if type_ == 1:
-                img = pygame.image.load(f'group project/small enemy 1-{i+1}.png')
+                img = pygame.image.load(f'Desktop/group project/small enemy 1-{i+1}.png')
             img = pygame.transform.scale(img, (50, 50))
             self.image_list.append(img)
         
