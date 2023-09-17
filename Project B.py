@@ -18,9 +18,13 @@ Blue_ship = pygame.image.load(os.path.join("Images", "Blue_Enemy.png"))
 #Player images
 Player_ship = pygame.image.load(os.path.join("Images", "player_ship.png"))
 
-#Bullet
+#Player Bullet
 Bullet = pygame.Surface((3,20))
-Bullet.fill((255,0,0))
+Bullet.fill((255,255,255))
+
+#Enemy Bullet
+Eullet = pygame.Surface((3.20))
+Eullet.fill((225,0,0))
 
 #Create every character
 class Ship:
@@ -75,9 +79,12 @@ BG = pygame.transform.scale \
 def main():
     run = True
     FPS = 60
-    level = 1
-    score = 0
+    level = 0
+    score = 1
+    lost = False
+    lost_count = 0
     main_font = pygame.font.SysFont("comicsans", 50)
+    lost_font = pygame.font.SysFont("comicsans", 60)
     clock = pygame.time.Clock()
     player = Player(300, 650)
     ship_speed = 5
@@ -104,15 +111,32 @@ def main():
         #Draw Player
         player.draw(screen)
 
+        #Appear text when you lose
+        if lost:
+            lost_label = lost_font.render("You lose!!", 1, (255,255,255))
+            screen.blit(lost_label, (width/2 - lost_label.get_width()/2, 350))
+
         pygame.display.update()
 
     #Make game run while loop
     while run:
         clock.tick(FPS)
+        draw()
+
+        if score <= 0 or player.health <= 0:
+            lost = True
+            lost_count += 1
+
+        #You lose
+        if lost:
+            if lost_count > FPS * 3:
+                run = False
+            else:
+                continue
 
         #Level of stage
         if len(enemies) == 0:
-            score += 1
+            level += 1
             wave_length += 5
             for i in range(wave_length):
                 enemy = Enemy(random.randrange(50, width-100), random.randrange(-1500, -100), \
@@ -137,7 +161,8 @@ def main():
         #Enemy move
         for enemy in enemies:
             enemy.move(enemy_val)
-
-        draw()
+            if enemy.y + enemy.get_height() > height:
+                score -= 1
+                enemies.remove(enemy)
 
 main()
