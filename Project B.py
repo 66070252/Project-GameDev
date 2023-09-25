@@ -223,7 +223,7 @@ def main():
         if key[pygame.K_SPACE]:
             player.shoot()
 
-        #Enemy move
+        #Enemy move and remove
         for enemy in enemies:
             enemy.move(enemy_val)
             enemy.move_bullet(bullet_speed, player)
@@ -231,6 +231,5 @@ def main():
                 score -= 1
                 enemies.remove(enemy)
         
-        player.move_bullet(bullet_speed, enemies)
-
+        player.move_bullet(-bullet_speed, enemies)
 main()
