@@ -1,8 +1,5 @@
 #import function
-import pygame
-import os
-import time
-import random
+import pygame, os, time, random, math, json
 pygame.font.init()
 
 #Screen
@@ -23,8 +20,8 @@ Bullet = pygame.Surface((3,20))
 Bullet.fill((255,255,255))
 
 #Enemy Bullet
-Eullet = pygame.Surface((3.20))
-Eullet.fill((225,0,0))
+Enemy_Bullet = pygame.Surface((3,20))
+Enemy_Bullet.fill((225,255,255))
 
 #Create every character
 class Ship:
