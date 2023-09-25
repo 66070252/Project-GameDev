@@ -113,14 +113,14 @@ class Player(Ship):
 #Enemy Ship
 class Enemy(Ship):
     COLOR_MAP = {
-                "red": (Red_ship),
-                "green": (Green_ship),
-                "blue": (Blue_ship)
+                "red": (Red_ship, Enemy_bullet),
+                "green": (Green_ship, Enemy_bullet),
+                "blue": (Blue_ship, Enemy_bullet)
                 }
 
     def __init__(self, x, y, color, health=100):
         super().__init__(x, y, health)
-        self.ship_img = self.COLOR_MAP[color]
+        self.ship_img, self.bullet_img = self.COLOR_MAP[color]
         self.mask = pygame.mask.from_surface(self.ship_img)
     
     #Move vertical line
