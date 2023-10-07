@@ -200,11 +200,3 @@ def game_loop():
     green_time = 0
 
     bullet_time = 0
-
-
-
-
-    
-
-        
-
