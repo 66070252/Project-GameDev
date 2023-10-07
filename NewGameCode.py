@@ -200,3 +200,137 @@ def game_loop():
     green_time = 0
 
     bullet_time = 0
+
+    while not gameExit:
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a]:
+        x_player -= speed_player
+    if keys[pygame.K_d]:
+        x_player += speed_player
+    if keys[pygame.K_w]:
+        y_player -= speed_player
+    if keys[pygame.K_s]:
+        y_player += speed_player
+
+    mouse_pressed = pygame.mouse.get_preessed()
+    if event.type == pygame.QUIT:
+        pygame.quit()
+        quit()
+
+    gameDisplay.fill(white)
+
+    mouse_pressed = pygame.mouse.get_pressed()
+
+    if mouse_pressed[2] == 1:
+        gameExit == True
+        game_intro()
+
+    if gameExit == False:
+
+        if difficulty == "easy":
+            time += 5
+            yellow_time += 0.15
+            green_time += 0.15
+        if difficulty == "normal":
+            time += 3
+            yellow_time += 0.3
+            green_time += 0.3
+        if difficulty == "hard":
+            time += 2
+            yellow_time += 0.5
+            green_time += 0.5
+        if difficulty == "hard":
+            time += 2
+            yellow_time += 0.5
+            green_time += 0.5
+        if difficulty == "very hard":
+            time += 1.5
+            yellow_time += 0.75
+            green_time += 0.75
+        if difficulty == "extreme":
+            time += 1
+            yellow_time += 1
+            green_time += 1
+
+        bullet_time += 1
+
+        if diffculty == "easy" and bullet_time > 199:
+            bullet_time = 0
+        if diffculty == "normal" and bullet_time > 109:
+            bullet_time = 0
+        if diffculty == "hard" and bullet_time > 79:
+            bullet_time = 0
+        if diffculty == "very hard" and bullet_time > 44:
+            bullet_time = 0
+        if diffculty == "extreme" and bullet_time > 19:
+            bullet_time = 0
+
+        if yellow_time > 89 and time < 4000:
+            yellow_time = 0
+            x_yellow_enemie.append(850)
+            y_yellow_enemie.append(random.randrange(51,551))
+
+        if green_time > 134 and time > 800 and time < 4000:
+            green_time = 0
+            x_green_enemie.append(random.randrange(51,751))
+            y_green_enemie.append(650)
+
+        if time > 3999 and game_over == False and len(x_bullet) < 1 and len(x_bullet_type_2) < 1 and len(x_bullet_type_3) < 1 and len(x_yellow_enemie) < 1 and len(x_green_enemie) < 1 and len(x_red_enemie) < 1 and len(x_blue_enemie) < 1:
+            largeText = pygame.font.Font("freesansbold.ttf", 70)
+            TextSurf, TextRect = text_objects("YOU WON!!!", largeText)
+            TextRect.center = ((display_width/2),(display_height/2))
+            gameDisplay.blit(TextSurf, TextRect)
+
+        for i in range(len(x_bullet)-1, -1, -1):
+            x_bullet[i] += x_bullet_speed[i] * 5
+            y_bullet[i] += y_bullet_speed[i] * 5
+
+            pygame.draw.rect(gameDisplay, bullet_color[i],(x_bullet[i] - 5, y_bullet[i] - 5, 10, 10))
+
+            if x_player > x_bullet[i] - 10 and x_player < x_player[i] + 10 and y_player > y_player[i] - 10 and y_player < y_player[i] + 10:
+                game_over = True
+
+            if x_bullet[i] < -25 or x_bullet[i]  > 825 or y_bullet[i] > 625 or y_bullet[i] < -25:
+                del x_bullet[i]
+                del y_bullet[i]
+                del x_bullet_speed[i]
+                del y_bullet_speed[i]
+                del bullet_color[i]
+
+        for i in range(len(x_bullet_type_2)-1, -1, -1):
+            x_bullet_type_2[i] += x_bullet_type_2_speed[i] / 5
+            y_bullet_type_2[i] += y_bullet_type_2_speed[i] / 2.5
+            y_bullet_type_2_speed[i] += 0.4
+
+            pygame.draw.rect(gameDisplay, red,(x_bullet_type_2[i] - 5, y_bullet_type_2[i] - 5, 10, 10))
+
+            if x_player > x_bullet_type_2[i] -10 and x_player < x_bullet_type_2[i] + 10 and if y_player > y_bullet_type_2[i] -10 and y_player < y_bullet_type_2[i] + 10:
+                game_over = True
+
+            if x_bullet_type_2[i] < -25 or x_bullet_2[i] > 825 or y_bullet_type_2[i] > 625:
+                del x_bullet_type_2[i]
+                del y_bullet_type_2[i]
+                del x_bullet_type_2_speed[i]
+                del y_bullet_type_2_speed[i]
+                del bullet_type_2_color[i]
+
+        for i in range(len(x_bullet_type_3)-1, -1, -1);
+            x_bullet_type_3[i] += x_bullet_type_3_speed[i] * 5
+            y_bullet_type_3[i] += y_bullet_type_3_speed[i] * 5
+        
+            pygame.draw.rect(gameDisplay, yellow,(x_bullet_type_3[i] - 5, y_bullet_type_3[i] - 5, 10, 10))
+
+            if x_player > x_bullet_type_3[i] -10 and x_player < x_bullet_type_3[i] + 10 and if y_player > y_bullet_type_3[i] -10 and y_player < y_bullet_type_3[i] + 10:
+                game_over = True
+
+            if x_bullet_type_3[i] < -25 or x_bullet_3[i] > 825 or y_bullet_type_3[i] > 625 or y_bullet_type_3[i] < -25:
+                del x_bullet_type_3[i]
+                del y_bullet_type_3[i]
+                del x_bullet_type_3_speed[i]
+                del y_bullet_type_3_speed[i]
+                del bullet_type_3_color[i]
