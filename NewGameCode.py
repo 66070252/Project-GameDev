@@ -334,3 +334,75 @@ def game_loop():
                 del x_bullet_type_3_speed[i]
                 del y_bullet_type_3_speed[i]
                 del bullet_type_3_color[i]
+                
+            #Drawing Enemy Yellow
+            for i in range(len(x_yellow_enemie)-1, -1, -1):
+                x_yellow_enemie[i] += -3
+                
+                pygame.draw.rect(gameDisplay, yellow,(x_yellow_enemie[i] - 15, y_yellow_enemie[i] - 15, 30, 30))
+                
+                pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] - 12, y_yellow_enemie[i] - 12, 6, 6))
+                pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] + 6, y_yellow_enemie[i] - 12, 6, 6))
+                pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] - 12, y_yellow_enemie[i] + 6, 24, 6))
+
+                if difficulty == 'easy':
+                    number = 66
+                if difficulty == 'normal':
+                    number = 46
+                if difficulty == 'hard':
+                    number = 31
+                if difficulty == 'very hard':
+                    number = 21
+                if difficulty == 'extreme':
+                    number = 11
+
+                if random.randrange(1,number) == 1:
+                    x = x_yellow_enemie[i]
+                    y = y_yellow_enemie[i]
+                    
+                    if random.randrange(0,2) == 1:
+                        if random.randrange(0,2) == 1:
+                            x_random = 800
+                            y_random = random.randrange(1,601)
+                        else:
+                            x_random = 0
+                            y_random = random.randrange(1,601)
+                    else:
+                        if random.randrange(0,2) == 1:
+                            x_random = random.randrange(1,801)
+                            y_random = 600
+                        else:
+                            x_random = random.randrange(1,801)
+                            y_random = 0
+
+                    distance = sqrt((x_random - x)**2 + (y_random - y)**2)
+                            
+                    x_speed = (x_random - x) / 240
+                    y_speed = (y_random - y) / 240
+                            
+                    x_speed /= distance / 150
+                    y_speed /= distance / 150
+                            
+                    x_bullet_speed.append(x_speed)
+                    y_bullet_speed.append(y_speed)
+                            
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+
+                    bullet_color.append(blue)
+
+                if x_player > x_yellow_enemie[i] - 20 and x_player < x_yellow_enemie[i] + 20 and y_player > y_yellow_enemie[i] - 20 and y_player < y_yellow_enemie[i] + 20:
+                    game_over = True
+                if x_player > x_yellow_enemie[i] - 30 and x_player < x_yellow_enemie[i] - 10 and y_player > y_yellow_enemie[i] - 25 and y_player < y_yellow_enemie[i] - 5:
+                    game_over = True
+                if x_player > x_yellow_enemie[i] + 10 and x_player < x_yellow_enemie[i] + 30 and y_player > y_yellow_enemie[i] - 25 and y_player < y_yellow_enemie[i] - 5:
+                    game_over = True
+                if x_player > x_yellow_enemie[i] - 30 and x_player < x_yellow_enemie[i] - 10 and y_player > y_yellow_enemie[i] + 10 and y_player < y_yellow_enemie[i] + 30:
+                    game_over = True
+                if x_player > x_yellow_enemie[i] + 10 and x_player < x_yellow_enemie[i] + 30 and y_player > y_yellow_enemie[i] + 10 and y_player < y_yellow_enemie[i] + 30:
+                    game_over = True
+
+                if x_yellow_enemie[i] < -25:
+                    del x_yellow_enemie[i]
+                    del y_yellow_enemie[i]
+            
