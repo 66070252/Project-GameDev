@@ -228,7 +228,7 @@ def main():
             enemy.move(enemy_val)
             enemy.move_bullet(bullet_speed, player)
             if enemy.y + enemy.get_height() > height:
-                score -= 1
+                live -= 1
                 enemies.remove(enemy)
         
         player.move_bullet(-bullet_speed, enemies)
