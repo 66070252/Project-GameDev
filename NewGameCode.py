@@ -1,6 +1,7 @@
 import pygame
 import random
 import time
+import os
 from math import sqrt
 
 #Normal Setting Ready to draw it
@@ -39,6 +40,7 @@ background_color2 = (0,0,255)
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('ShipHi!')
 clock = pygame.time.Clock()
+BG = pygame.image.load(os.path.join("Images", "BG.png")).convert()
 
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
@@ -47,10 +49,6 @@ def text_objects(text, font):
 def text_objects_blue(text, font):
     textSurface = font.render(text, True, blue)
     return textSurface, textSurface.get_rect()
-
-#Running game
-def game_intro():
-    game_loop()
 
 #Keep Game still running
 def game_loop():
@@ -166,7 +164,7 @@ def game_loop():
     y_player = display_width // 2
     speed_player = 5
 
-    gameExit = False
+    gameExit = True
 
     game_over = False
 
@@ -212,7 +210,7 @@ def game_loop():
     bullet_time = 0
 
     #Running and drawing a whole game
-    while not gameExit:
+    while gameExit:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -238,10 +236,10 @@ def game_loop():
         mouse_pressed = pygame.mouse.get_pressed()
 
         if keys[pygame.K_ESCAPE] == 1:
-            gameExit = True
-            game_intro()
+            gameExit = False
+            game_loop()
             
-        if gameExit == False:
+        if gameExit == True:
 
             #Check difficulty
             if difficulty == 'easy':
@@ -477,7 +475,7 @@ def game_loop():
             x_player = 400
             y_player = 300
 
-            gameExit = False
+            gameExit = True
 
             x_bullet = list()
             y_bullet = list()
@@ -526,7 +524,7 @@ def game_loop():
         pygame.display.update()
         clock.tick(60)
 
-game_intro()
+game_loop()
 
 pygame.quit()
 quit()
