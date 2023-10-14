@@ -245,29 +245,29 @@ def game_loop():
 
             #Check difficulty
             if difficulty == 'easy':
-                time += 5
-                yellow_time += 0.15
-                green_time += 0.15
-            if difficulty == 'normal':
-                time += 3
-                yellow_time += 0.3
-                green_time += 0.3
-            if difficulty == 'hard':
                 time += 2
                 yellow_time += 0.5
                 green_time += 0.5
-            if difficulty == 'very hard':
+            if difficulty == 'normal':
                 time += 1.5
                 yellow_time += 0.75
                 green_time += 0.75
-            if difficulty == 'extreme':
+            if difficulty == 'hard':
                 time += 1
                 yellow_time += 1
                 green_time += 1
+            if difficulty == 'very hard':
+                time += 1
+                yellow_time += 1.5
+                green_time += 1.5
+            if difficulty == 'extreme':
+                time += 1
+                yellow_time += 2
+                green_time += 2
 
             bullet_time += 1
 
-            #Make bullet disappear
+            #Make bullet Appear
             if difficulty == 'easy' and bullet_time > 199:
                 bullet_time = 0
             if difficulty == 'normal' and bullet_time > 109:
@@ -361,13 +361,13 @@ def game_loop():
                 pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] - 12, y_yellow_enemie[i] + 6, 24, 6))
 
                 if difficulty == 'easy':
-                    number = 66
-                if difficulty == 'normal':
-                    number = 46
-                if difficulty == 'hard':
                     number = 31
-                if difficulty == 'very hard':
+                if difficulty == 'normal':
                     number = 21
+                if difficulty == 'hard':
+                    number = 11
+                if difficulty == 'very hard':
+                    number = 11
                 if difficulty == 'extreme':
                     number = 11
 
@@ -433,13 +433,13 @@ def game_loop():
                 pygame.draw.rect(gameDisplay, black,(x_green_enemie[i] - 15, y_green_enemie[i] + 7, 30, 8))
 
                 if difficulty == 'easy':
-                    number = 56
-                if difficulty == 'normal':
-                    number = 36
-                if difficulty == 'hard':
                     number = 21
-                if difficulty == 'very hard':
+                if difficulty == 'normal':
                     number = 11
+                if difficulty == 'hard':
+                    number = 4
+                if difficulty == 'very hard':
+                    number = 4
                 if difficulty == 'extreme':
                     number = 4
 
