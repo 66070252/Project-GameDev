@@ -40,7 +40,6 @@ background_color2 = (0,0,255)
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('ShipHi!')
 clock = pygame.time.Clock()
-BG = pygame.image.load(os.path.join("Images", "BG.png")).convert()
 
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
@@ -52,7 +51,10 @@ def text_objects_blue(text, font):
 
 #Keep Game still running
 def game_loop():
-    
+
+    Space_BG = pygame.image.load(os.path.join("Images", "BG.png"))
+    BG = pygame.transform.scale(Space_BG, (display_width, display_height))
+
     choose_difficulty = True
 
     left_clicked = True
@@ -212,6 +214,8 @@ def game_loop():
     #Running and drawing a whole game
     while gameExit:
 
+        gameDisplay.fill(white)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -230,8 +234,6 @@ def game_loop():
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
-
-        gameDisplay.fill(white)
 
         mouse_pressed = pygame.mouse.get_pressed()
 
