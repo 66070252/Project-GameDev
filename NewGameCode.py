@@ -49,6 +49,10 @@ def text_objects_blue(text, font):
     textSurface = font.render(text, True, blue)
     return textSurface, textSurface.get_rect()
 
+def text_objects_white(text, font):
+    textSurface = font.render(text, True, white)
+    return textSurface, textSurface.get_rect()
+
 #Keep Game still running
 def game_loop():
 
@@ -208,7 +212,8 @@ def game_loop():
 
     yellow_time = 90
     green_time = 0
-
+    red_time = 0
+    blue_time = 0
     bullet_time = 0
 
     #Running and drawing a whole game
@@ -242,7 +247,7 @@ def game_loop():
             game_loop()
             
         if gameExit == True:
-
+            
             #Check difficulty
             if difficulty == 'easy':
                 time += 2
@@ -258,12 +263,10 @@ def game_loop():
                 green_time += 1
             if difficulty == 'very hard':
                 time += 1
-                yellow_time += 1.5
-                green_time += 1.5
+                blue_time += 1.5
             if difficulty == 'extreme':
                 time += 1
-                yellow_time += 2
-                green_time += 2
+                red_time += 3
 
             bullet_time += 1
 
@@ -280,7 +283,7 @@ def game_loop():
                 bullet_time = 0
 
             #Adding Enemy Yellow
-            if yellow_time > 89 and time < 4000:
+            if yellow_time > 99 and time < 4000:
                 yellow_time = 0
                 x_yellow_enemie.append(850)
                 y_yellow_enemie.append(random.randrange(51,551))
@@ -290,6 +293,28 @@ def game_loop():
                 green_time = 0
                 x_green_enemie.append(random.randrange(51,751))
                 y_green_enemie.append(650)
+
+            #Adding Enemy Red
+            if red_time > 59 and time > 1600 and time < 4000:
+                red_time = 0
+                x_red_enemie.append(random.randrange(51,751))
+                y_red_enemie.append(-50)
+            
+            if red_time > 59 and time < 4000 and difficulty == "extreme":
+                red_time = 0
+                x_red_enemie.append(random.randrange(51,751))
+                y_red_enemie.append(-50)
+
+            #Adding Enemy Blue
+            if blue_time > 99 and time > 2400 and time < 4000:
+                blue_time = 0
+                x_blue_enemie.append(-50)
+                y_blue_enemie.append(random.randrange(51,551))
+
+            if blue_time > 89 and time < 4000 and difficulty == "very hard":
+                blue_time = 0
+                x_blue_enemie.append(-50)
+                y_blue_enemie.append(random.randrange(51,551))
 
             #Game win condition
             if time > 3999 and game_over == False and len(x_bullet) < 1 and len(x_bullet_type_2) < 1 and len(x_bullet_type_3) < 1 and len(x_yellow_enemie) < 1 and len(x_green_enemie) < 1 and len(x_red_enemie) < 1 and len(x_blue_enemie) < 1:
@@ -472,6 +497,130 @@ def game_loop():
         pygame.draw.rect(gameDisplay, black,(x_player - 4, y_player - 4, 2, 2))
         pygame.draw.rect(gameDisplay, black,(x_player + 2, y_player - 4, 2, 2))
         pygame.draw.rect(gameDisplay, black,(x_player - 4, y_player + 2, 8, 2))
+
+        #Drawing Red Enemy
+        for i in range(len(x_red_enemie)-1, -1, -1):
+                y_red_enemie[i] += 5
+                
+                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 15, y_red_enemie[i] - 15, 30, 30))
+
+                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 10, 70))
+                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 70, 10))
+                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] + 25, 70, 10))
+                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] + 25, y_red_enemie[i] - 35, 10, 70))
+                
+                pygame.draw.rect(gameDisplay, black,(x_red_enemie[i] - 12, y_red_enemie[i] - 12, 6, 6))
+                pygame.draw.rect(gameDisplay, black,(x_red_enemie[i] + 6, y_red_enemie[i] - 12, 6, 6))
+                pygame.draw.rect(gameDisplay, black,(x_red_enemie[i] - 12, y_red_enemie[i] + 6, 24, 6))
+
+                if difficulty == 'very hard':
+                    number = 41
+                if difficulty == 'extreme':
+                    number = 21
+
+                if random.randrange(1,number) == 1:
+                    x = x_red_enemie[i]
+                    y = y_red_enemie[i]
+                    
+                    x_direction = x_player
+                    y_direction = y_player
+
+                    distance = sqrt((x_direction - x)**2 + (y_direction - y)**2)
+                            
+                    x_speed = (x_direction - x) / 240
+                    y_speed = (y_direction - y) / 240
+                            
+                    x_speed /= distance / 150
+                    y_speed /= distance / 150
+                            
+                    x_bullet_type_3_speed.append(x_speed)
+                    y_bullet_type_3_speed.append(y_speed)
+                            
+                    x_bullet_type_3.append(x)
+                    y_bullet_type_3.append(y)
+
+                    bullet_type_3_color.append(yellow)
+
+                if x_player > x_red_enemie[i] - 30 and x_player < x_red_enemie[i] + 30 and y_player > y_red_enemie[i] - 30 and y_player < y_red_enemie[i] + 30:
+                    game_over = True
+
+                if y_red_enemie[i] > 625:
+                    del x_red_enemie[i]
+                    del y_red_enemie[i]
+        
+        #Drawing Blue Enemy
+        for i in range(len(x_blue_enemie)-1, -1, -1):
+                x_blue_enemie[i] += 2.5
+                
+                pygame.draw.rect(gameDisplay, blue,(x_blue_enemie[i] - 20, y_blue_enemie[i] - 20, 40, 40))
+
+                pygame.draw.rect(gameDisplay, black,(x_blue_enemie[i] - 12, y_blue_enemie[i] - 12, 6, 6))
+                pygame.draw.rect(gameDisplay, black,(x_blue_enemie[i] + 6, y_blue_enemie[i] - 12, 6, 6))
+
+                if bullet_time == 1:
+                    x = x_blue_enemie[i]
+                    y = y_blue_enemie[i]
+                            
+                    x_bullet_speed.append(0 / 30)
+                    y_bullet_speed.append(-30 / 30)
+
+                    x_bullet_speed.append(22.5 / 30)
+                    y_bullet_speed.append(-22.5 / 30)
+
+                    x_bullet_speed.append(30 / 30)
+                    y_bullet_speed.append(0 / 30)
+
+                    x_bullet_speed.append(22.5 / 30)
+                    y_bullet_speed.append(22.5 / 30)
+
+                    x_bullet_speed.append(0 / 30)
+                    y_bullet_speed.append(30 / 30)
+
+                    x_bullet_speed.append(-22.5 / 30)
+                    y_bullet_speed.append(22.5 / 30)
+
+                    x_bullet_speed.append(-30 / 30)
+                    y_bullet_speed.append(0 / 30)
+
+                    x_bullet_speed.append(-22.5 / 30)
+                    y_bullet_speed.append(-22.5 / 30)
+                            
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+                    x_bullet.append(x)
+                    y_bullet.append(y)
+
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+                    bullet_color.append(green)
+
+                if x_player > x_blue_enemie[i] - 40 and x_player < x_blue_enemie[i] + 40 and y_player > y_blue_enemie[i] - 25 and y_player < y_blue_enemie[i] + 25:
+                    game_over = True
+                if x_player > x_blue_enemie[i] - 45 and x_player < x_blue_enemie[i] - 45 and y_player > y_blue_enemie[i] - 25 and y_player < y_blue_enemie[i] - 5:
+                    game_over = True
+                if x_player > x_blue_enemie[i] + 45 and x_player < x_blue_enemie[i] + 45 and y_player > y_blue_enemie[i] + 5 and y_player < y_blue_enemie[i] + 25:
+                    game_over = True
+
+                if x_blue_enemie[i] > 850:
+                    del x_blue_enemie[i]
+                    del y_blue_enemie[i]
 
         if restart == True:
             x_player = 400
