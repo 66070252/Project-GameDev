@@ -14,13 +14,13 @@ fix_width = display_width/800
 fix_height = display_height/600
 
 black = (0,0,0)
-white = (255,255,255)
+grayed = (55,55,55)
 
 gray = (55,55,55)
 pink = (200,50,180)
 
-red = (255,0,0)
-green = (0,255,0)
+pinkred = (255,50,120)
+green = (0,200,255)
 blue = (0,0,255)
 
 brightblue = (100,100,255)
@@ -29,11 +29,11 @@ darkred = (200,0,0)
 darkgreen = (0,200,0)
 darkblue = (0,0,200)
 
-yellow = (255,255,0)
+ammo = (255,50,120)
 
 savefile_opened_or_created = list()
 
-background_color1 = (255,255,255)
+background_color1 = (0,0,0)
 background_color2 = (0,0,255)
 
 #Text
@@ -50,7 +50,7 @@ def text_objects_blue(text, font):
     return textSurface, textSurface.get_rect()
 
 def text_objects_white(text, font):
-    textSurface = font.render(text, True, white)
+    textSurface = font.render(text, True, grayed)
     return textSurface, textSurface.get_rect()
 
 #Keep Game still running
@@ -70,7 +70,7 @@ def game_loop():
                 pygame.quit()
                 quit()
         
-        gameDisplay.fill(white)
+        gameDisplay.fill(grayed)
 
         largeText = pygame.font.Font('freesansbold.ttf', 50)
         TextSurf, TextRect = text_objects("Difficulty", largeText)
@@ -219,7 +219,7 @@ def game_loop():
     #Running and drawing a whole game
     while gameExit:
 
-        gameDisplay.fill(white)
+        gameDisplay.fill(grayed)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -346,7 +346,7 @@ def game_loop():
                 y_bullet_type_2[i] += y_bullet_type_2_speed[i] / 2.5
                 y_bullet_type_2_speed[i] += 0.4
                 
-                pygame.draw.rect(gameDisplay, red,(x_bullet_type_2[i] - 5, y_bullet_type_2[i] - 5, 10, 10))
+                pygame.draw.rect(gameDisplay, pinkred,(x_bullet_type_2[i] - 5, y_bullet_type_2[i] - 5, 10, 10))
 
                 if x_player > x_bullet_type_2[i] - 10 and x_player < x_bullet_type_2[i] + 10 and y_player > y_bullet_type_2[i] - 10 and y_player < y_bullet_type_2[i] + 10:
                     game_over = True
@@ -363,7 +363,7 @@ def game_loop():
                 x_bullet_type_3[i] += x_bullet_type_3_speed[i] * 5
                 y_bullet_type_3[i] += y_bullet_type_3_speed[i] * 5
                 
-                pygame.draw.rect(gameDisplay, yellow,(x_bullet_type_3[i] - 5, y_bullet_type_3[i] - 5, 10, 10))
+                pygame.draw.rect(gameDisplay, ammo,(x_bullet_type_3[i] - 5, y_bullet_type_3[i] - 5, 10, 10))
 
                 if x_player > x_bullet_type_3[i] - 10 and x_player < x_bullet_type_3[i] + 10 and y_player > y_bullet_type_3[i] - 10 and y_player < y_bullet_type_3[i] + 10:
                     game_over = True
@@ -379,7 +379,7 @@ def game_loop():
             for i in range(len(x_yellow_enemie)-1, -1, -1):
                 x_yellow_enemie[i] += -3
                 
-                pygame.draw.rect(gameDisplay, yellow,(x_yellow_enemie[i] - 15, y_yellow_enemie[i] - 15, 30, 30))
+                pygame.draw.rect(gameDisplay, ammo,(x_yellow_enemie[i] - 15, y_yellow_enemie[i] - 15, 30, 30))
                 
                 pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] - 12, y_yellow_enemie[i] - 12, 6, 6))
                 pygame.draw.rect(gameDisplay, black,(x_yellow_enemie[i] + 6, y_yellow_enemie[i] - 12, 6, 6))
@@ -502,12 +502,12 @@ def game_loop():
         for i in range(len(x_red_enemie)-1, -1, -1):
                 y_red_enemie[i] += 5
                 
-                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 15, y_red_enemie[i] - 15, 30, 30))
+                pygame.draw.rect(gameDisplay, pinkred,(x_red_enemie[i] - 15, y_red_enemie[i] - 15, 30, 30))
 
-                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 10, 70))
-                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 70, 10))
-                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] - 35, y_red_enemie[i] + 25, 70, 10))
-                pygame.draw.rect(gameDisplay, red,(x_red_enemie[i] + 25, y_red_enemie[i] - 35, 10, 70))
+                pygame.draw.rect(gameDisplay, pinkred,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 10, 70))
+                pygame.draw.rect(gameDisplay, pinkred,(x_red_enemie[i] - 35, y_red_enemie[i] - 35, 70, 10))
+                pygame.draw.rect(gameDisplay, pinkred,(x_red_enemie[i] - 35, y_red_enemie[i] + 25, 70, 10))
+                pygame.draw.rect(gameDisplay, pinkred,(x_red_enemie[i] + 25, y_red_enemie[i] - 35, 10, 70))
                 
                 pygame.draw.rect(gameDisplay, black,(x_red_enemie[i] - 12, y_red_enemie[i] - 12, 6, 6))
                 pygame.draw.rect(gameDisplay, black,(x_red_enemie[i] + 6, y_red_enemie[i] - 12, 6, 6))
@@ -539,7 +539,7 @@ def game_loop():
                     x_bullet_type_3.append(x)
                     y_bullet_type_3.append(y)
 
-                    bullet_type_3_color.append(yellow)
+                    bullet_type_3_color.append(ammo)
 
                 if x_player > x_red_enemie[i] - 30 and x_player < x_red_enemie[i] + 30 and y_player > y_red_enemie[i] - 30 and y_player < y_red_enemie[i] + 30:
                     game_over = True
