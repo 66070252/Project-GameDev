@@ -14,16 +14,15 @@ fix_width = display_width/800
 fix_height = display_height/600
 
 black = (0,0,0)
-grayed = (55,55,55)
+grayed = (20,20,20)
 
-gray = (55,55,55)
-pink = (200,50,180)
+white = (255,255,255)
 
 pinkred = (255,50,120)
-green = (0,200,255)
+cyan = (0,200,255)
 blue = (0,0,255)
 
-brightblue = (100,100,255)
+brightblue = (100,100,0)
 
 darkred = (200,0,0)
 darkgreen = (0,200,0)
@@ -42,7 +41,7 @@ pygame.display.set_caption('ShipHi!')
 clock = pygame.time.Clock()
 
 def text_objects(text, font):
-    textSurface = font.render(text, True, black)
+    textSurface = font.render(text, True, white)
     return textSurface, textSurface.get_rect()
 
 def text_objects_blue(text, font):
@@ -89,7 +88,7 @@ def game_loop():
         mouse_pressed = pygame.mouse.get_pressed()
 
         if x_mouse > 150*fix_width and x_mouse < 250*fix_width and y_mouse > 175*fix_height and y_mouse < 225*fix_height:
-            pygame.draw.rect(gameDisplay, green,(150*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
+            pygame.draw.rect(gameDisplay, cyan,(150*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
             if mouse_pressed[0] == 1 and left_clicked == False:
                 difficulty = 'easy'
                 choose_difficulty = False
@@ -98,7 +97,7 @@ def game_loop():
             pygame.draw.rect(gameDisplay, darkgreen,(150*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
 
         if x_mouse > 350*fix_width and x_mouse < 450*fix_width and y_mouse > 175*fix_height and y_mouse < 225*fix_height:
-            pygame.draw.rect(gameDisplay, green,(350*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
+            pygame.draw.rect(gameDisplay, cyan,(350*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
             if mouse_pressed[0] == 1 and left_clicked == False:
                 difficulty = 'normal'
                 choose_difficulty = False
@@ -107,7 +106,7 @@ def game_loop():
             pygame.draw.rect(gameDisplay, darkgreen,(350*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
 
         if x_mouse > 550*fix_width and x_mouse < 650*fix_width and y_mouse > 175*fix_height and y_mouse < 225*fix_height:
-            pygame.draw.rect(gameDisplay, green,(550*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
+            pygame.draw.rect(gameDisplay, cyan,(550*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
             if mouse_pressed[0] == 1 and left_clicked == False:
                 difficulty = 'hard'
                 choose_difficulty = False
@@ -115,7 +114,7 @@ def game_loop():
             pygame.draw.rect(gameDisplay, darkgreen,(550*fix_width, 175*fix_height, 100*fix_width, 50*fix_height))
 
         if x_mouse > 250*fix_width and x_mouse < 350*fix_width and y_mouse > 375*fix_height and y_mouse < 425*fix_height:
-            pygame.draw.rect(gameDisplay, green,(250*fix_width, 375*fix_height, 100*fix_width, 50*fix_height))
+            pygame.draw.rect(gameDisplay, cyan,(250*fix_width, 375*fix_height, 100*fix_width, 50*fix_height))
             if mouse_pressed[0] == 1 and left_clicked == False:
                 difficulty = 'very hard'
                 choose_difficulty = False
@@ -124,7 +123,7 @@ def game_loop():
             pygame.draw.rect(gameDisplay, darkgreen,(250*fix_width, 375*fix_height, 100*fix_width, 50*fix_height))
 
         if x_mouse > 450*fix_width and x_mouse < 550*fix_width and y_mouse > 375*fix_height and y_mouse < 425*fix_height:
-            pygame.draw.rect(gameDisplay, green,(450*fix_width, 375*fix_height, 100*fix_width, 50*fix_height))
+            pygame.draw.rect(gameDisplay, cyan,(450*fix_width, 375*fix_height, 100*fix_width, 50*fix_height))
             if mouse_pressed[0] == 1 and left_clicked == False:
                 difficulty = 'extreme'
                 choose_difficulty = False
@@ -429,7 +428,7 @@ def game_loop():
                     x_bullet.append(x)
                     y_bullet.append(y)
 
-                    bullet_color.append(blue)
+                    bullet_color.append(pinkred)
 
                 if x_player > x_yellow_enemie[i] - 20 and x_player < x_yellow_enemie[i] + 20 and y_player > y_yellow_enemie[i] - 20 and y_player < y_yellow_enemie[i] + 20:
                     game_over = True
@@ -450,8 +449,8 @@ def game_loop():
             for i in range(len(x_green_enemie)-1, -1, -1):
                 y_green_enemie[i] += -2
                 
-                pygame.draw.rect(gameDisplay, green,(x_green_enemie[i] - 25, y_green_enemie[i] - 15, 50, 30))
-                pygame.draw.rect(gameDisplay, green,(x_green_enemie[i] - 15, y_green_enemie[i] - 25, 30, 50))
+                pygame.draw.rect(gameDisplay, pinkred,(x_green_enemie[i] - 25, y_green_enemie[i] - 15, 50, 30))
+                pygame.draw.rect(gameDisplay, pinkred,(x_green_enemie[i] - 15, y_green_enemie[i] - 25, 30, 50))
                 
                 pygame.draw.rect(gameDisplay, black,(x_green_enemie[i] - 15, y_green_enemie[i] - 15, 8, 8))
                 pygame.draw.rect(gameDisplay, black,(x_green_enemie[i] + 7, y_green_enemie[i] - 15, 8, 8))
@@ -493,7 +492,7 @@ def game_loop():
                     del x_green_enemie[i]
                     del y_green_enemie[i]
             
-        pygame.draw.rect(gameDisplay, green,(x_player - 5, y_player - 5, 10, 10))
+        pygame.draw.rect(gameDisplay, cyan,(x_player - 5, y_player - 5, 10, 10))
         pygame.draw.rect(gameDisplay, black,(x_player - 4, y_player - 4, 2, 2))
         pygame.draw.rect(gameDisplay, black,(x_player + 2, y_player - 4, 2, 2))
         pygame.draw.rect(gameDisplay, black,(x_player - 4, y_player + 2, 8, 2))
@@ -552,7 +551,7 @@ def game_loop():
         for i in range(len(x_blue_enemie)-1, -1, -1):
                 x_blue_enemie[i] += 2.5
                 
-                pygame.draw.rect(gameDisplay, blue,(x_blue_enemie[i] - 20, y_blue_enemie[i] - 20, 40, 40))
+                pygame.draw.rect(gameDisplay, pinkred,(x_blue_enemie[i] - 20, y_blue_enemie[i] - 20, 40, 40))
 
                 pygame.draw.rect(gameDisplay, black,(x_blue_enemie[i] - 12, y_blue_enemie[i] - 12, 6, 6))
                 pygame.draw.rect(gameDisplay, black,(x_blue_enemie[i] + 6, y_blue_enemie[i] - 12, 6, 6))
@@ -602,14 +601,14 @@ def game_loop():
                     x_bullet.append(x)
                     y_bullet.append(y)
 
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
-                    bullet_color.append(green)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
+                    bullet_color.append(pinkred)
 
                 if x_player > x_blue_enemie[i] - 40 and x_player < x_blue_enemie[i] + 40 and y_player > y_blue_enemie[i] - 25 and y_player < y_blue_enemie[i] + 25:
                     game_over = True
